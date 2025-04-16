@@ -8,7 +8,7 @@
       wrapper.style.textAlign = "right";
   
       const iframe = document.createElement("iframe");
-      iframe.src = "https://demo.botpress.cloud/4c376a0b-76ad-4c62-a46b-b5c6c1ad3e2c/webchat";
+      iframe.src = "https://neverssl.com";
       iframe.width = "400";
       iframe.height = "600";
       iframe.style.border = "1px solid #5e55fa";
