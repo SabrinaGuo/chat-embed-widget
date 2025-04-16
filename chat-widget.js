@@ -1,4 +1,5 @@
 (function () {
+    console.log("load script");
     const createChatWidget = () => {
       const wrapper = document.createElement("div");
       wrapper.style.position = "fixed";
