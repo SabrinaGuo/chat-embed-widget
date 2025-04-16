@@ -1,6 +1,6 @@
 (function () {
-    console.log("load script");
     const createChatWidget = () => {
+      console.log("load script");
       const wrapper = document.createElement("div");
       wrapper.style.position = "fixed";
       wrapper.style.bottom = "20px";
