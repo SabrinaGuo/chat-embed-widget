@@ -8,8 +8,8 @@
       wrapper.style.textAlign = "right";
   
       const iframe = document.createElement("iframe");
-      iframe.src = "./widget.html";
-      // iframe.src = "https://sabrinaguo.github.io/chat-embed-widget/widget.html";
+      // iframe.src = "./widget.html";
+      iframe.src = "https://sabrinaguo.github.io/chat-embed-widget/widget.html";
       iframe.width = "400";
       iframe.height = "600";
       iframe.style.border = "1px solid #5e55fa";
