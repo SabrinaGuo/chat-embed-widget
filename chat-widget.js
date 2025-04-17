@@ -1,6 +1,5 @@
 (function () {
     const createChatWidget = () => {
-      console.log("load script");
       const wrapper = document.createElement("div");
       wrapper.style.position = "fixed";
       wrapper.style.bottom = "20px";
@@ -9,12 +8,14 @@
       wrapper.style.textAlign = "right";
   
       const iframe = document.createElement("iframe");
-      iframe.src = "https://neverssl.com";
+      iframe.src = "./widget.html";
+      // iframe.src = "https://sabrinaguo.github.io/chat-embed-widget/widget.html";
       iframe.width = "400";
       iframe.height = "600";
       iframe.style.border = "1px solid #5e55fa";
       iframe.style.borderRadius = "16px";
       iframe.style.marginBottom = "1rem";
+      iframe.style.padding = "1rem";
       iframe.style.display = "none";
   
       const button = document.createElement("button");

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Widget</title>
+  <style>
+    body{
+        padding: 0;
+        margin: 0;
+    }
+    .chatbox {
+      width: 100%;
+      max-width: 100%;
+      height: 100vh;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    .chatbox h2 {
+      color: #5e55fa;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      background: #f8f8ff;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+    .input-area {
+      display: flex;
+      gap: 0.5rem;
+    }
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #5e55fa;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chatbox">
+    <h2>🤖 Chatbot Widget</h2>
+    <div class="messages" id="messages">
+      <p><strong>Bot：</strong>你好！有什麼我可以幫忙的嗎？</p>
+    </div>
+    <div class="input-area">
+      <input id="userInput" type="text" placeholder="輸入訊息..." />
+      <button onclick="sendMessage()">送出</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const messages = document.getElementById("messages");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      const userMsg = document.createElement("p");
+      userMsg.innerHTML = "<strong>你：</strong>" + msg;
+      messages.appendChild(userMsg);
+
+      const botReply = document.createElement("p");
+      botReply.innerHTML = "<strong>Bot：</strong>這是自動回覆：「" + msg + "」";
+      messages.appendChild(botReply);
+
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
