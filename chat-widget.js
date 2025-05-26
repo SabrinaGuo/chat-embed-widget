@@ -27,14 +27,14 @@
       width: 34px;
       height: 34px;
       margin: 0;
-      background: url('https://your-cdn.com/img-bot.png') center no-repeat;
+      background: url('./img-bot.png') center no-repeat;
       background-size: contain;
     }
     .iframe-btn.open figure {
       top: 50%;
       width: 26px;
       height: 26px;
-      background: url('https://your-cdn.com/img-arrow.png') center no-repeat;
+      background: url('./img-arrow.png') center no-repeat;
       background-size: contain;
     }
     .iframe-content {

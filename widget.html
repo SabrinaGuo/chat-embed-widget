@@ -143,9 +143,6 @@
         <img src="./img-head.png" alt="">
         <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
       </div>
-      <div class="messages-user messages-box">
-        <p>123</p>
-      </div>
     </div>
     <div class="input-area">
       <input id="userInput" type="text" placeholder="輸入訊息..." />
@@ -163,7 +160,7 @@
         const userBox = document.createElement("div");
         userBox.className = "messages-user messages-box";
         const userP = document.createElement("p");
-        userP.innerHTML = `<strong>你：</strong>${msg}`;
+        userP.innerHTML = msg;
         userBox.appendChild(userP);
         messages.appendChild(userBox);
 
