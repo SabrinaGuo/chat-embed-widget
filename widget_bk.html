@@ -99,6 +99,11 @@
     margin: 0;
     color: #444444;
   }
+  .messages-box span{
+    padding: 0 5px;
+    color: #888888;
+    font-size: 10px;
+  }
   .messages-bot img{
     display: inline-block;
     width: 24px;
@@ -142,9 +147,11 @@
       <div class="messages-bot messages-box">
         <img src="./img-head.png" alt="">
         <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+        <span>7:20</span>
       </div>
       <div class="messages-user messages-box">
-        <p>123</p>
+        <span>7:20</span>
+        <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
       </div>
     </div>
     <div class="input-area">
@@ -153,6 +160,12 @@
     </div>
   </div>
   <script>
+      function formatTime() {
+        const now = new Date();
+        const h = now.getHours().toString().padStart(2, '0');
+        const m = now.getMinutes().toString().padStart(2, '0');
+        return `${h}:${m}`;
+      }
       function sendMessage() {
         const input = document.getElementById("userInput");
         const messages = document.getElementById("messages");
@@ -163,7 +176,7 @@
         const userBox = document.createElement("div");
         userBox.className = "messages-user messages-box";
         const userP = document.createElement("p");
-        userP.innerHTML = `<strong>你：</strong>${msg}`;
+        userP.innerHTML = msg;
         userBox.appendChild(userP);
         messages.appendChild(userBox);
 

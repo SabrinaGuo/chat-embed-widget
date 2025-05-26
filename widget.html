@@ -23,6 +23,9 @@
       margin: 0;
       
     }
+    .title-wrap{
+      text-align: left;
+    }
     .title-head img{
       width: 40px;
       margin-right: 12px;
@@ -49,7 +52,7 @@
       width: 24px;
       height: 24px;
     }
-    .close-btn svg{
+    .close-btn img{
       width: 100%;
     }
     .chatbox {
@@ -91,13 +94,20 @@
   }
   .messages-box{
     display: flex;
-    margin-bottom: 20px;
     align-items: flex-end;
+    margin-bottom: 20px;
   }
   .messages-box p{
     padding: 8px 12px;
     margin: 0;
+    text-align: left;
     color: #444444;
+    max-width: 70%;
+  }
+  .messages-box span{
+    padding: 0 5px;
+    color: #888888;
+    font-size: 10px;
   }
   .messages-bot img{
     display: inline-block;
@@ -130,19 +140,20 @@
           </div>
       </h2>
       <a href="javascript:;" class="close-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9.16992 14.83L14.8299 9.17004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M14.8299 14.83L9.16992 9.17004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+       <img src="./img-close.png" alt="">
       </a>
     </div>
 
     <div class="messages" id="messages">
-      <div class="messages-bot messages-box">
+      <!-- <div class="messages-bot messages-box">
         <img src="./img-head.png" alt="">
         <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+        <span>7:20</span>
       </div>
+      <div class="messages-user messages-box">
+        <span>7:20</span>
+        <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+      </div> -->
     </div>
     <div class="input-area">
       <input id="userInput" type="text" placeholder="輸入訊息..." />
@@ -150,6 +161,35 @@
     </div>
   </div>
   <script>
+      // let isInitialized = false;
+      function init(){
+        // if (isInitialized) return;
+        // isInitialized = true;
+        messages.innerHTML = '';
+        const botBox = document.createElement("div");
+        botBox.className = "messages-bot messages-box";
+        const botImg = document.createElement("img");
+        botImg.src = "./img-head.png";
+        botImg.alt = "bot";
+        const botP = document.createElement("p");
+        botP.innerHTML = `嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？`;
+
+        const botTime = document.createElement("span");
+        botTime.textContent = formatTime();
+
+        botBox.appendChild(botImg);
+        botBox.appendChild(botP);
+        botBox.appendChild(botTime);
+        messages.appendChild(botBox);
+      }
+      init()
+
+      function formatTime() {
+        const now = new Date();
+        const h = now.getHours().toString().padStart(2, '0');
+        const m = now.getMinutes().toString().padStart(2, '0');
+        return `${h}:${m}`;
+      }
       function sendMessage() {
         const input = document.getElementById("userInput");
         const messages = document.getElementById("messages");
@@ -159,8 +199,12 @@
         // 使用者訊息盒子
         const userBox = document.createElement("div");
         userBox.className = "messages-user messages-box";
+        const userTime = document.createElement("span");
+        userTime.textContent = formatTime();
         const userP = document.createElement("p");
         userP.innerHTML = msg;
+
+        userBox.appendChild(userTime);
         userBox.appendChild(userP);
         messages.appendChild(userBox);
 
@@ -172,8 +216,13 @@
         botImg.alt = "bot";
         const botP = document.createElement("p");
         botP.innerHTML = `<strong>Bot：</strong>這是自動回覆：「${msg}」`;
+
+        const botTime = document.createElement("span");
+        botTime.textContent = formatTime();
+
         botBox.appendChild(botImg);
         botBox.appendChild(botP);
+        botBox.appendChild(botTime);
         messages.appendChild(botBox);
 
         input.value = "";
