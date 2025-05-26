@@ -15,25 +15,29 @@
       justify-content: space-between;
       align-items: center;
       background: linear-gradient(90deg, #BF51DC 0%, #5E55FA 100%);
-      padding: 12px 20px;
-
+      padding: 9px 20px;
     }
     .title-head{
       display: flex;
+      align-items: center;
       margin: 0;
-      
+    }
+    .title-wrap{
+      text-align: left;
     }
     .title-head img{
       width: 40px;
       margin-right: 12px;
     }
     .title-head p{
-      font-size: 16px;
+      font-size: 14px;
       margin: 0;
+      font-weight: 700;
       color: white;
     }
     .title-head span{
       font-size: 12px;
+      font-weight: 400;
       color: white;
     }
     .green-dot{
@@ -49,7 +53,7 @@
       width: 24px;
       height: 24px;
     }
-    .close-btn svg{
+    .close-btn img{
       width: 100%;
     }
     .chatbox {
@@ -91,12 +95,18 @@
   }
   .messages-box{
     display: flex;
-    margin-bottom: 20px;
     align-items: flex-end;
+    margin-bottom: 20px;
+  }
+  .messages-content{
+    padding: 8px 12px;
+    max-width: 70%;
   }
   .messages-box p{
-    padding: 8px 12px;
     margin: 0;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 400;
     color: #444444;
   }
   .messages-box span{
@@ -104,13 +114,32 @@
     color: #888888;
     font-size: 10px;
   }
+  .messages-box button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 4px;
+    border:none;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  .messages-box textarea{
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    margin-top: 10px;
+    padding: 4px;
+    border:none;
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
   .messages-bot img{
     display: inline-block;
     width: 24px;
     height: 24px;
     margin-right: 5px;
   }
-  .messages-bot p{
+  .messages-bot .messages-content{
     background-color: #F1F1F1;
     border-radius: 16px 16px 16px 0;
   
@@ -118,9 +147,48 @@
   .messages-user{
     justify-content: end;
   }
-  .messages-user p{
+  .messages-user .messages-content{
     border-radius: 16px 16px 0 16px;
     background-color:rgba(150, 144, 249, 0.2);
+  }
+  .spinner {
+    text-align: center;
+  }
+
+  .spinner > div {
+    width: 8px;
+    height: 8px;
+    background-color: #444;
+
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  .spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+
+  .spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+
+  @-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% { -webkit-transform: scale(0) }
+    40% { -webkit-transform: scale(1.0) }
+  }
+
+  @keyframes sk-bouncedelay {
+    0%, 80%, 100% { 
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 40% { 
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+    }
   }
   </style>
 </head>
@@ -135,23 +203,44 @@
           </div>
       </h2>
       <a href="javascript:;" class="close-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9.16992 14.83L14.8299 9.17004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M14.8299 14.83L9.16992 9.17004" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="./img-close.png" alt="">
       </a>
     </div>
 
     <div class="messages" id="messages">
       <div class="messages-bot messages-box">
         <img src="./img-head.png" alt="">
-        <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+        <div class="messages-content">
+          <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+        </div>
+        <span>7:20</span>
+      </div>
+      <div class="messages-bot messages-box">
+        <img src="./img-head.png" alt="">
+        <div class="messages-content">
+          <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </div>
         <span>7:20</span>
       </div>
       <div class="messages-user messages-box">
         <span>7:20</span>
-        <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+        <div class="messages-content">
+          <p>嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？</p>
+        </div>
+      </div>
+      <div class="messages-bot messages-box">
+        <img src="./img-head.png" alt="">
+        <div class="messages-content">
+          <p>請問這次的對話是否有解決您的問題呢？</p>
+          <button onclick="showText('是')">是</button>
+          <button onclick="showText('否')">否</button>
+          <textarea type="text" placeholder="更多意見回饋" rows="4"></textarea>
+        </div>
+        <span>7:20</span>
       </div>
     </div>
     <div class="input-area">
@@ -160,12 +249,78 @@
     </div>
   </div>
   <script>
+      // let isInitialized = false;
+      function init(){
+        // if (isInitialized) return;
+        // isInitialized = true;
+        // messages.innerHTML = '';
+        createBotMsg('嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？')
+        // const botBox = document.createElement("div");
+        // botBox.className = "messages-bot messages-box";
+        // const botBoxContent = document.createElement("div");
+        // botBoxContent.className = "messages-content";
+        // const botImg = document.createElement("img");
+        // botImg.src = "./img-head.png";
+        // botImg.alt = "bot";
+        // const botP = document.createElement("p");
+        // botP.innerHTML = `嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？`;
+
+        // const botTime = document.createElement("span");
+        // botTime.textContent = formatTime();
+
+        // botBox.appendChild(botImg);
+        // botBox.appendChild(botBoxContent);
+        // botBoxContent.appendChild(botP);
+        // botBox.appendChild(botTime);
+        // messages.appendChild(botBox);
+      }
+      init()
+
+      function createUserMsg(str){
+        // 使用者訊息盒子
+        const userBox = document.createElement("div");
+        userBox.className = "messages-user messages-box";
+        const userTime = document.createElement("span");
+        userTime.textContent = formatTime();
+        const userBoxContent = document.createElement("div");
+        userBoxContent.className = "messages-content";
+        const userP = document.createElement("p");
+        userP.innerHTML = str;
+
+        userBox.appendChild(userTime);
+        userBox.appendChild(userBoxContent);
+        userBoxContent.appendChild(userP);
+        messages.appendChild(userBox);
+      }
+
+      function createBotMsg(str){
+        const botBox = document.createElement("div");
+        botBox.className = "messages-bot messages-box";
+        const botBoxContent = document.createElement("div");
+        botBoxContent.className = "messages-content";
+        const botImg = document.createElement("img");
+        botImg.src = "./img-head.png";
+        botImg.alt = "bot";
+        const botP = document.createElement("p");
+        botP.innerHTML = `<strong>Bot：</strong>這是自動回覆：「${str}」`;
+
+        const botTime = document.createElement("span");
+        botTime.textContent = formatTime();
+
+        botBox.appendChild(botImg);
+        botBox.appendChild(botBoxContent);
+        botBoxContent.appendChild(botP);
+        botBox.appendChild(botTime);
+        messages.appendChild(botBox);
+      }
+
       function formatTime() {
         const now = new Date();
         const h = now.getHours().toString().padStart(2, '0');
         const m = now.getMinutes().toString().padStart(2, '0');
         return `${h}:${m}`;
       }
+      
       function sendMessage() {
         const input = document.getElementById("userInput");
         const messages = document.getElementById("messages");
@@ -173,27 +328,48 @@
         if (!msg) return;
 
         // 使用者訊息盒子
-        const userBox = document.createElement("div");
-        userBox.className = "messages-user messages-box";
-        const userP = document.createElement("p");
-        userP.innerHTML = msg;
-        userBox.appendChild(userP);
-        messages.appendChild(userBox);
+        // const userBox = document.createElement("div");
+        // userBox.className = "messages-user messages-box";
+        // const userTime = document.createElement("span");
+        // userTime.textContent = formatTime();
+        // const userBoxContent = document.createElement("div");
+        // userBoxContent.className = "messages-content";
+        // const userP = document.createElement("p");
+        // userP.innerHTML = msg;
+
+        // userBox.appendChild(userTime);
+        // userBox.appendChild(userBoxContent);
+        // userBoxContent.appendChild(userP);
+        // messages.appendChild(userBox);
+        createUserMsg(msg)
 
         // Bot 回覆訊息盒子
-        const botBox = document.createElement("div");
-        botBox.className = "messages-bot messages-box";
-        const botImg = document.createElement("img");
-        botImg.src = "./img-head.png";
-        botImg.alt = "bot";
-        const botP = document.createElement("p");
-        botP.innerHTML = `<strong>Bot：</strong>這是自動回覆：「${msg}」`;
-        botBox.appendChild(botImg);
-        botBox.appendChild(botP);
-        messages.appendChild(botBox);
+        // const botBox = document.createElement("div");
+        // botBox.className = "messages-bot messages-box";
+        // const botBoxContent = document.createElement("div");
+        // botBoxContent.className = "messages-content";
+        // const botImg = document.createElement("img");
+        // botImg.src = "./img-head.png";
+        // botImg.alt = "bot";
+        // const botP = document.createElement("p");
+        // botP.innerHTML = `<strong>Bot：</strong>這是自動回覆：「${msg}」`;
+
+        // const botTime = document.createElement("span");
+        // botTime.textContent = formatTime();
+
+        // botBox.appendChild(botImg);
+        // botBox.appendChild(botBoxContent);
+        // botBoxContent.appendChild(botP);
+        // botBox.appendChild(botTime);
+        // messages.appendChild(botBox);
+        createBotMsg(msg)
 
         input.value = "";
         messages.scrollTop = messages.scrollHeight;
+      }
+
+      window.showText = function(str){
+        createUserMsg(str)
       }
 
       document.getElementById("userInput").addEventListener("keydown", (e) => {
