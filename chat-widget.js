@@ -1,46 +1,90 @@
-(function () {
-    const createChatWidget = () => {
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "fixed";
-      wrapper.style.bottom = "20px";
-      wrapper.style.right = "20px";
-      wrapper.style.zIndex = "1000";
-      wrapper.style.textAlign = "right";
-  
-      const iframe = document.createElement("iframe");
-      // iframe.src = "./widget.html";
-      iframe.src = "https://sabrinaguo.github.io/chat-embed-widget/widget.html";
-      iframe.width = "400";
-      iframe.height = "600";
-      iframe.style.border = "1px solid #5e55fa";
-      iframe.style.borderRadius = "16px";
-      iframe.style.marginBottom = "1rem";
-      iframe.style.padding = "1rem";
-      iframe.style.display = "none";
-  
-      const button = document.createElement("button");
-      button.innerText = "Open Chat";
-      button.style.width = "60px";
-      button.style.height = "60px";
-      button.style.borderRadius = "50%";
-      button.style.border = "1px solid #5e55fa";
-      button.style.backgroundColor = "white";
-      button.style.color = "#5e55fa";
-      button.style.fontSize = "14px";
-  
-      button.addEventListener("click", () => {
-        iframe.style.display = iframe.style.display === "none" ? "block" : "none";
-      });
-  
-      wrapper.appendChild(iframe);
-      wrapper.appendChild(button);
-      document.body.appendChild(wrapper);
-    };
-  
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", createChatWidget);
-    } else {
-      createChatWidget();
+// chat-widget.js
+(function() {
+  const style = document.createElement('style');
+  style.textContent = `
+    .iframe-wrapper {
+      position: fixed;
+      bottom: 20px;
+      right: 28px;
+      z-index: 1000;
+      text-align: right;
     }
-  })();
-  
+    .iframe-btn {
+      position: relative;
+      z-index: 0;
+      display: inline-block;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: linear-gradient(90deg, #BF51DC 0%, #5E55FA 100%);
+    }
+    .iframe-btn figure {
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 34px;
+      height: 34px;
+      margin: 0;
+      background: url('https://your-cdn.com/img-bot.png') center no-repeat;
+      background-size: contain;
+    }
+    .iframe-btn.open figure {
+      top: 50%;
+      width: 26px;
+      height: 26px;
+      background: url('https://your-cdn.com/img-arrow.png') center no-repeat;
+      background-size: contain;
+    }
+    .iframe-content {
+      display: block;
+      width: 360px;
+      height: 540px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      box-shadow: 4px 0px 20px 0px #00000026;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .iframe-content.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'iframe-wrapper';
+
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://sabrinaguo.github.io/chat-embed-widget/widget.html';
+  iframe.frameBorder = '0';
+  iframe.className = 'iframe-content';
+  iframe.id = 'chatIframe';
+
+  const btn = document.createElement('div');
+  btn.className = 'iframe-btn';
+  const figure = document.createElement('figure');
+  btn.appendChild(figure);
+
+  wrapper.appendChild(iframe);
+  wrapper.appendChild(btn);
+  document.body.appendChild(wrapper);
+
+  const toggleIframe = () => {
+    iframe.classList.toggle('show');
+    btn.classList.toggle('open');
+  };
+
+  btn.addEventListener('click', toggleIframe);
+
+  window.addEventListener('message', (event) => {
+    if (event.data === 'closeChatIframe') {
+      iframe.classList.remove('show');
+      btn.classList.remove('open');
+    }
+  });
+})();

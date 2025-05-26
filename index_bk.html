@@ -63,6 +63,33 @@
   </head>
   <body>
     <h1>這是一個測試頁面</h1>
-    <script src="./chat-widget.js"></script>
+    <div class="iframe-wrapper">
+      <iframe src="./widget.html" frameborder="0" class="iframe-content" id="chatIframe"></iframe>
+      <div class="iframe-btn"><figure></figure></div>
+    </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const iframeContent = document.querySelector('.iframe-content');
+      const iframeBtn = document.querySelector('.iframe-btn');
+
+      const toggleIframe = () =>{
+          console.log("click");
+          iframeContent.classList.toggle("show");
+          iframeBtn.classList.toggle('open')
+      }
+
+      iframeBtn.addEventListener('click',toggleIframe)
+
+      window.addEventListener('message', (event) => {
+          if (event.data === 'closeChatIframe') {
+              const iframe = document.getElementById('chatIframe');
+              if (iframe) {
+                  iframeContent.classList.remove("show");
+                  iframeBtn.classList.remove('open')
+              }
+          }
+      });
+    })
+  </script>
   </body>
 </html>
