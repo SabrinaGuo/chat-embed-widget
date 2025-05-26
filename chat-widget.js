@@ -64,7 +64,7 @@
       justify-content: space-between;
       align-items: center;
       background: linear-gradient(90deg, #BF51DC 0%, #5E55FA 100%);
-      padding: 12px 20px;
+      padding: 9px 20px;
     }
     .title-head {
       display: flex;
