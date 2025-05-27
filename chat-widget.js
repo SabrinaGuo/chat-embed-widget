@@ -289,6 +289,7 @@
 
   // 傳送訊息
   let connecting = false;
+  let isComposing = false;
   const sendBtn = widget.querySelector(".send-btn");
   const userInput = widget.querySelector("#userInput");
   const messages = widget.querySelector("#messages");
