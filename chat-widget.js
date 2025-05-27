@@ -390,6 +390,7 @@
     botBoxContent.appendChild(botP);
     botBox.appendChild(botTime);
     messages.appendChild(botBox);
+    messages.scrollTop = messages.scrollHeight;
   }
 
   function getMessageAndSend(){
@@ -444,7 +445,6 @@
         sendBtn.classList.remove("disabled");
       }
     }
-    messages.scrollTop = messages.scrollHeight;
   }
 
   window.showText = function(str){
