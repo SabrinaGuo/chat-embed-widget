@@ -7,7 +7,6 @@
       right: 28px;
       z-index: 1;
       text-align: right;
-      pointer-events: none;
     }
     .iframe-wrapper:has(show) {
       z-index: 1000;
