@@ -125,6 +125,7 @@
       flex: 1;
       padding: 0.5rem;
       border: none;
+      font-size: 13px;
       border-radius: 16px;
       background-color: #F4F4F4;
     }
