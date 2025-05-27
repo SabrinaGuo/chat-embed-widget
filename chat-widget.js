@@ -3,9 +3,9 @@
   style.textContent = `
     .iframe-wrapper {
       position: fixed;
-      bottom: 20px;
-      right: 28px;
-      z-index: 1;
+      bottom: 77px;
+      right: 45px;
+      z-index: 5;
       text-align: right;
     }
     .iframe-wrapper:has(show) {
