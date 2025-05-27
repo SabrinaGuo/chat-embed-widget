@@ -5,12 +5,12 @@
       position: fixed;
       bottom: 20px;
       right: 28px;
-      z-index: 1000;
+      z-index: 1;
       text-align: right;
       pointer-events: none;
     }
     .iframe-wrapper:has(show) {
-      pointer-events: auto;
+      z-index: 1000;
     }
     .iframe-btn {
       position: relative;
