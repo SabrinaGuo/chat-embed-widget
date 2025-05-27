@@ -7,6 +7,10 @@
       right: 28px;
       z-index: 1000;
       text-align: right;
+      pointer-events: none;
+    }
+    .iframe-wrapper:has(show) {
+      pointer-events: auto;
     }
     .iframe-btn {
       position: relative;
