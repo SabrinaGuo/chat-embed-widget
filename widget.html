@@ -420,7 +420,6 @@
             );
             const raw = await response.text();
             const replyText = switchToObject(raw);
-            console.log(replyText);
             loadingEl.remove();
             createBotMsg(replyText.data);
             connecting = false;
