@@ -284,6 +284,7 @@
 
   // 切換開關
   btn.addEventListener("click", () => {
+    userInput.value = "";
     widget.classList.toggle("show");
     btn.classList.toggle("open");
     if( widget.classList.contains('show')){
@@ -321,14 +322,6 @@
     const m = now.getMinutes().toString().padStart(2, '0');
     return `${h}:${m}`;
   }
-
-  function switchToObject(str){
-    const cleanedStr = str.trim();
-    const [key, ...rest] = cleanedStr.split(":");
-    const value = rest.join(":").trim();
-    const result = { [key.trim()]: value };
-    return result;
-  };
 
   function createBotLoading() {
     const botBox = document.createElement("div");
@@ -405,9 +398,6 @@
     sendMessage(msg); // 把訊息傳進去
   };
 
-  const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ4MzQwMzc1LCJpYXQiOjE3NDgzMTE1NzUsImp0aSI6IjFiNTcwMWZmNDZkZDQyOTc5MDVhNTVhM2I2ZWYwM2U1IiwidXNlcl9pZCI6M30.2uaTeDGIz_mn71IondBAursvTdULbbSogpDtrqzggPs";
-
   async function sendMessage(msg) {
     const messages = document.getElementById("messages");
     if (!msg) return;
@@ -425,20 +415,21 @@
       sendBtn.classList.add("disabled");
       try {
         const response = await fetch(
-          "https://dev-backend.aicom.cloud/api/chatbot/",
+          "https://billing-ai-temp-505738238648.asia-east1.run.app/api/v1/demo/stream_ask_question",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token.replace(/^"|"$/g, "")}`,
             },
-            body: JSON.stringify({ question: msg }),
+            body: JSON.stringify({
+                  question_str: msg,
+                  account_restrictions: [],
+                }),
           }
         );
-        const raw = await response.text();
-        const replyText = switchToObject(raw);
+        const replyText = await response.text();
         if (loadingEl) loadingEl.remove();
-        createBotMsg(replyText.data);
+        createBotMsg(replyText);
         connecting = false;
         sendBtn.classList.remove("disabled");
       } catch (error) {
