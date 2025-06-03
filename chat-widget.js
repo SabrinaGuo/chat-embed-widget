@@ -157,6 +157,14 @@
       font-weight: 400;
       color: #444;
     }
+    .messages-box .link-style {
+      margin: 0;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 400;
+      color: #0008ff;
+      text-decoration: underline;
+    }
     .messages-box span{
       padding: 0 5px;
       color: #888888;
@@ -282,7 +290,7 @@
   const enterQuestionnaireHTML = `
     <div class="bot-feedback-block">
       <div class="text-style">Sorry we couldn’t assist you this time. Please leave your information via our  
-        <a href="https://aicom.nextlink.cloud/contact-us/" target="_blank" rel="noopener noreferrer">Contact Us</a> 
+        <a class="link-style" href="https://aicom.nextlink.cloud/contact-us/" target="_blank" rel="noopener noreferrer">Contact Us</a> 
         form, and we’ll arrange for a specialist to get in touch with you as soon as possible.
       </div>
     </div>
@@ -348,7 +356,7 @@
     const urlRegex =
       /(https?:\/\/[^\s\u3002\uff0c\u3001\uFF1F\uFF01\uFF1B\uFF1A\u300C\u300D\u300E\u300F\u201C\u201D\u300A\u300B\u3010\u3011\uFF08\uFF09]+)/g;
     return text.replace(urlRegex, (url) => {
-      return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+      return `<a class="link-style" href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
     });
   }
 
