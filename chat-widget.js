@@ -330,7 +330,7 @@
     const botBoxContent = document.createElement("div");
     botBoxContent.className = "messages-content";
     const botImg = document.createElement("img");
-    botImg.src = "./img-head.png";
+    botImg.src = botBaseImg;
 
     const loading = document.createElement("div");
     loading.className = "spinner";
