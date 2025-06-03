@@ -515,7 +515,7 @@
         createBotMsg(
           "Thanks again for your valuable feedback! I'll keep improving to deliver a better experience in the future."
         );
-        target.value = "";
+        // target.value = "";
       }
     }
   });
