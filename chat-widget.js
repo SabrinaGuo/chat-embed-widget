@@ -150,7 +150,7 @@
       padding: 8px 12px;
       max-width: 70%;
     }
-    .messages-box p {
+    .messages-box .text-style {
       margin: 0;
       text-align: left;
       font-size: 13px;
@@ -253,8 +253,8 @@
       <h2 class="title-head">
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABLCAYAAADnAAD1AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATZSURBVHgB7ZzhdZswEMfPfvleb1AyQd0JSiZoMkHoBE0niDNBkgnsTOBkArsTtJ4AbWBngqvOEg0GCSQsYcD6vadHCgeUf07S6SQFIBAIBAKBQKCXjKCjIGLED5H85240Gv2FQDVctAkv97xssUwqr00gUIYLM5Ui1ZFK7wxkkCAar9OxDSLmQDPPK/IHAnvxkiqRZNFxDeeORqA0X0VRVPFUYbeCc0fjWbHCLlbYbeGckZ5VQmM7MbVtkzGclp3qJKpjvQgCZVAdvjwq7OYKu9ATcxGeUA0Jdo2il15pbGZw7qAYgTQhBNMZ5Elozx0EPkB9VVYxg0AZ8iqsHtZtg+fVgCI2XCrEo3OdS2WdOg4swROnjB/eFZc2/NoOOkbnBOwbQcAjCQIeydGTSrxhn/JDzMs3Xlw18lPFs5gsrnjj5VW2ue2DIr20wv6zQuEErYr3iMPjHhpgXYX5i+b8kMAwWfAq/cPmBqtOBEWaKYHhkth6orEHopjAWWouU4D7wktfVg9Qm/cd9EnaK+6Ja3AJ6seoM+gpqM8CuZ2sQvWETq/Fy0B9FsjduFvzkhQGAIrJKtW0QvOsj/Q4ClVWKKqu2xd0DI2DbOW3r6QWkcmDpmgeHCcwELB6dUSeZVHIce4hP/mBZrliCOigSCTlWt1mJ/YCooh9nuB8sc0zLjIRx9IlZ3DeNEnUUrs5ueA/qDqDNYhsBZOFhm/tDrhPD31/Vivp2ynblF8NRmFOQgJ+Kdx4WUzxcKU7l0p3DFOc2+ZGI3R8krU1H77F1AYeBIwny4/1AIU2n8gDvc90oYjqExDeHsnTNG5+O3bMWfHsZ0/OwHLviUpjXNUdmtgwAQOwfvH4HBsOmyj0wuq11UaZFVQvs5trbNOcTXpRuM7AIbLNoIF5lUAJiN/oFdg9O4H60IuSBVT1HmrsGrfxvieVyANMvCtG+5GNad5uhjXDMMv5Zpb7OSp1Iq7ItU2m3JoaolgCHIE5CXjCm4BgHzfa2Mdgh7cYtliFGZwOn9HAJ/CEzzaQgR1N2yET3sET3gSUMRizuOW3he0r2GFrb0xRQNfV6MXC1jgbJHvNtaE5s7C1ZedVQP6hMzD7zz80GJHQ/C0zsHtwPCLJa7QX0Hei4Ab0nkjv/iWFtkKKQsE3q3j2DbdbgFsOnOxCvmiiuugCWd0oZb4AEX58lpc2IFYCNP4FShEvUcxZxyB6W+owaCz8avpstFvtn9eIZQL+v0hBqvNJZdh/7Bo8tUX82dRJeOsoMqTQB05GVXhTsFvKAX6MYXt9lmigDT+0rKW4M2pTNWmesUV1xiOBgaDRQPfdeaKxrFpV4cYEWsgZdpC679737lkYcwf+YqU+YOsgL1nksBeQeiteKCSoy5sNFVMBs7AryU4cBNJS1UtenqE/S9VcENVcX4NwLppwMx4xZQtvKCW/UDSgg/l7BaiectjPwqGLSAT1a0di6DmtfBvql4Cl2OM9uyjCF+V3gWuwek/vHNveKtAQ6QzZ8j0dienzbNZIU1tA7V6dUNRTMTgcIjJon3wcNymUKtYyIjHCapsDfkxTRjBMGIgF5sz0BquMtEEKqc9Q2GYlHmGd0pcv+AoiVhwC1NRQjGctHnHUZkNZpSkXR3suVBsEuwqJtl+bA0fmJANH8g/kQs0FIHKAPQAAAABJRU5ErkJggg==" />
         <div class="title-wrap">
-          <p>AICOM 平台智能幫手</p>
-          <p><span class="green-dot"></span><span>在線上</span></p>
+          <p>AI Smart Assistant</p>
+          <p><span class="green-dot"></span><span>Online</span></p>
         </div>
       </h2>
       <a href="javascript:;" class="close-btn">
@@ -263,15 +263,30 @@
     </div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
-      <input id="userInput" type="text" placeholder="輸入訊息..." />
+      <input id="userInput" type="text"/>
       <div class="send-btn"></div>
     </div>
   `;
 
-  const satisfactionHTML=`<p>請問這次的對話是否有解決您的問題呢？</p>
-          <button onclick="showText('是')">是</button>
-          <button onclick="showText('否')">否</button>
-          <textarea type="text" placeholder="更多意見回饋" rows="4"></textarea>`
+  const satisfactionHTML = `
+    <div class="bot-feedback-block">
+      <div class="text-style">Was this answer helpful to you?</div>
+      <div class="feedback-buttons">
+        <button onclick="showText('Yes')">Yes</button>
+        <button onclick="showText('No')">No</button>
+      </div>
+      <textarea placeholder="more..." rows="4" id="feedback-input"></textarea>
+    </div>
+  `;
+
+  const enterQuestionnaireHTML = `
+    <div class="bot-feedback-block">
+      <div class="text-style">Sorry we couldn’t assist you this time. Please leave your information via our  
+        <a href="https://aicom.nextlink.cloud/contact-us/" target="_blank" rel="noopener noreferrer">Contact Us</a> 
+        form, and we’ll arrange for a specialist to get in touch with you as soon as possible.
+      </div>
+    </div>
+  `;
 
   const btn = document.createElement("div");
   btn.className = "iframe-btn";
@@ -295,17 +310,38 @@
   // 傳送訊息
   let connecting = false;
   let isComposing = false;
+  let isFeedbackInputComposing = false;
   const sendBtn = widget.querySelector(".send-btn");
   const userInput = widget.querySelector("#userInput");
   const messages = widget.querySelector("#messages");
+  // const feedbackInput = widget.querySelector("#feedback-input");
 
-  const defaultCallSatisfactionStr = '暫時沒問題';
+  const defaultCallSatisfactionStr = [
+  "謝謝你",
+  "太感謝了！",
+  "了解了",
+  "沒問題了",
+  "我知道該怎麼做了",
+  "Thanks, Thank you",
+  "Much appreciated!",
+  "Got it, I see",
+  "That's all, No more questions",
+  "I know what to do now"
+];
+  const enterQuestionnaireStr = [
+  "你沒幫上忙",
+  "這不是我要的答案",
+  "我想跟真人聊",
+  "That didn’t help",
+  "That’s not what I asked",
+  "I want to talk to a human",
+];
 
   const botBaseImg = "data:image/png;base64,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"
 
   function init(){
     messages.innerHTML = '';
-    createBotMsg('嗨，您好，我是 Poco，有什麼我可以幫上忙的地方嗎？')
+    createBotMsg("Hi there! I'm Poco. How can I assist you today?")
   }
 
   function linkify(text) {
@@ -355,7 +391,8 @@
     userTime.textContent = formatTime();
     const userBoxContent = document.createElement("div");
     userBoxContent.className = "messages-content";
-    const userP = document.createElement("p");
+    const userP = document.createElement("div");
+    userP.className="text-style"
     userP.innerHTML = str;
 
     userBox.appendChild(userTime);
@@ -367,26 +404,31 @@
   function createBotMsg(str) {
     const botBox = document.createElement("div");
     botBox.className = "messages-bot messages-box";
+
     const botBoxContent = document.createElement("div");
     botBoxContent.className = "messages-content";
+
     const botImg = document.createElement("img");
     botImg.src = botBaseImg;
 
-    const botP = document.createElement("p");
-    if (str === defaultCallSatisfactionStr) {
-      botBoxContent.innerHTML = satisfactionHTML;
-    } else {
-      botP.innerHTML = linkify(str);
-    }
-
     const botTime = document.createElement("span");
     botTime.textContent = formatTime();
+    if (defaultCallSatisfactionStr.includes(str)) {
+      botBoxContent.innerHTML = satisfactionHTML; 
+    } else if (enterQuestionnaireStr.includes(str)) {
+      botBoxContent.innerHTML = enterQuestionnaireHTML;
+    } else {
+      const botP = document.createElement("div");
+      botP.className="text-style"
+      botP.innerHTML = linkify(str);
+      botBoxContent.appendChild(botP);
+    }
 
     botBox.appendChild(botImg);
     botBox.appendChild(botBoxContent);
-    botBoxContent.appendChild(botP);
     botBox.appendChild(botTime);
     messages.appendChild(botBox);
+
     messages.scrollTop = messages.scrollHeight;
   }
 
@@ -404,9 +446,9 @@
     createUserMsg(msg);
     const loadingEl = createBotLoading();
 
-    if (msg === defaultCallSatisfactionStr) {
+    if (defaultCallSatisfactionStr.includes(msg)||enterQuestionnaireStr.includes(msg)) {
       loadingEl.remove();
-      createBotMsg(satisfactionHTML);
+      createBotMsg(msg);
       return;
     }
 
@@ -444,19 +486,41 @@
   window.showText = function(str){
     createUserMsg(str)
     setTimeout(() => {
-      if (str === "是") {
+      if (str === "Yes") {
         createBotMsg(
-          "沒問題，很高興能幫上忙，如果有疑問，歡迎隨時在這輸入關鍵字與我聯繫！"
+          "Thank you for your feedback! I'm glad I could help. If you have any other questions, feel free to chat with me anythime!"
         );
         return;
       }
-      createBotMsg("好的，感謝您的回饋。");
+      createBotMsg("That didn’t help");
     }, 600);
   }
 
   sendBtn.addEventListener("click", () => {
     getMessageAndSend();
   });
+
+  document.addEventListener("keydown", (e) => {
+    const target = e.target;
+    if (
+      target.matches("#feedback-input") &&
+      e.key === "Enter" &&
+      !e.shiftKey &&
+      !isFeedbackInputComposing
+    ) {
+      const message = target.value?.trim();
+      if (message) {
+        // createUserMsg(message);
+        e.preventDefault();
+        createBotMsg(
+          "Thanks again for your valuable feedback! I'll keep improving to deliver a better experience in the future."
+        );
+        target.value = "";
+      }
+    }
+  });
+
+
   // 判斷是否正在輸入中文（選字階段）
   userInput.addEventListener("compositionstart", () => {
     isComposing = true;
