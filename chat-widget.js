@@ -546,6 +546,7 @@
   });
 
   document.querySelector('.close-btn').addEventListener('click', () => {
+    console.log("click close");
     widget.classList.remove("show");
     btn.classList.remove("open");
   });
