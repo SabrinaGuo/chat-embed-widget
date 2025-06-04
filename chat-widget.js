@@ -271,7 +271,7 @@
     </div>
     <div class="messages" id="messages"></div>
     <div class="input-area">
-      <input id="userInput" type="text"/>
+      <input id="userInput" type="text" placeholder="send a message" />
       <div class="send-btn"></div>
     </div>
   `;
