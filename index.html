@@ -10,20 +10,26 @@
     <div class="chatbox">
       <div class="chat-header">
         <h2 class="title-head">
-          <img src="./img-bot.png" alt="" />
+          <img src="./img/icon-bot.svg" alt="" />
           <div class="title-wrap">
             <p>AI Smart Assistant</p>
-            <p><span class="green-dot"></span><span>Online</span></p>
+            <p>
+              <span class="green-dot"></span>
+              <span>Online</span>
+            </p>
           </div>
         </h2>
-        <a href="javascript:;" class="close-btn">
-          <img src="./img-close.png" alt="" />
-        </a>
+        <div class="close-btn"></div>
       </div>
 
       <div class="messages" id="messages">
         <div class="messages-bot messages-box">
-          <img src="./img-head.png" alt="" />
+          <div
+            class="messages-bot-icon"
+            style="background: linear-gradient(90deg, #bf51dc 0%, #5e55fa 100%)"
+          >
+            <img src="./img/icon-bot.svg" alt="" />
+          </div>
           <div class="messages-content">
             <div class="text-style">
               Hi there! I'm Poco. How can I assist you today?
@@ -31,6 +37,7 @@
           </div>
           <span>7:20</span>
         </div>
+
         <div class="messages-user messages-box">
           <span>7:20</span>
           <div class="messages-content">
@@ -39,7 +46,8 @@
             </div>
           </div>
         </div>
-        <div class="messages-bot messages-box">
+
+        <!-- <div class="messages-bot messages-box">
           <img src="./img-head.png" alt="" />
           <div class="messages-content">
             <div class="spinner">
@@ -49,8 +57,9 @@
             </div>
           </div>
           <span>7:20</span>
-        </div>
-        <div class="messages-bot messages-box">
+        </div> -->
+
+        <!-- <div class="messages-bot messages-box">
           <img src="./img-head.png" alt="" />
           <div class="messages-content">
             <div class="bot-feedback-block">
@@ -67,8 +76,9 @@
             </div>
           </div>
           <span>7:20</span>
-        </div>
-        <div class="messages-bot messages-box">
+        </div> -->
+
+        <!-- <div class="messages-bot messages-box">
           <img src="./img-head.png" alt="" />
           <div class="messages-content">
             <div class="bot-feedback-block">
@@ -88,8 +98,9 @@
             </div>
           </div>
           <span>7:20</span>
-        </div>
-        <div class="messages-bot messages-box">
+        </div> -->
+
+        <!-- <div class="messages-bot messages-box">
           <img src="./img-head.png" alt="" />
           <div class="messages-content">
             <div class="bot-feedback-block">
@@ -100,11 +111,12 @@
             </div>
           </div>
           <span>7:20</span>
-        </div>
+        </div> -->
       </div>
+
       <div class="input-area">
         <input id="userInput" type="text" placeholder="send a message" />
-        <a href="javascript:;" class="send-btn"></a>
+        <div class="send-btn"></div>
       </div>
     </div>
 
