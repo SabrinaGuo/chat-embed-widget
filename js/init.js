@@ -1,6 +1,7 @@
 (function() {
     const BOT_DOMAIN = 'https://sabrinaguo.github.io'
-    const BOT_SRC = `${BOT_DOMAIN}/chat-embed-widget`
+    // const BOT_SRC = `${BOT_DOMAIN}/chat-embed-widget`
+    const BOT_SRC = `./index.html`
     const BOT_IMG = `${BOT_SRC}/img/icon-bot.svg`
     const BOT_ARROW = `${BOT_SRC}/img/icon-arrow.svg`
 
@@ -8,10 +9,8 @@
 
     const WRAPPER = document.createElement('div')
     WRAPPER.style.position = 'fixed'
-    WRAPPER.style.right = '20px'
+    WRAPPER.style.right = '10px'
     WRAPPER.style.bottom = '20px'
-    WRAPPER.style.width = '48px'
-    WRAPPER.style.height = '48px'
     WRAPPER.style.cursor = 'pointer'
     WRAPPER.style.zIndex = '9999'
     WRAPPER.style.overflow = 'hidden'
@@ -24,7 +23,7 @@
     BOT_BTN.style.borderRadius = '50%'
     BOT_BTN.style.background = "linear-gradient(90deg, #BF51DC 0%, #5E55FA 100%)"
     BOT_BTN.style.position = 'absolute'
-    BOT_BTN.style.right = '0'
+    BOT_BTN.style.right = '10px'
     BOT_BTN.style.bottom = '0'
     BOT_BTN.style.display = 'flex'
     BOT_BTN.style.justifyContent = 'center'
@@ -37,11 +36,14 @@
     BTN_ICON.style.userSelect = 'none'
 
     const IFRAME = document.createElement('iframe')
-    IFRAME.style.width = '100%'
-    IFRAME.style.height = '540px'
-    IFRAME.style.border = 'none'
     IFRAME.src = BOT_SRC
+    IFRAME.style.width = 'calc(100% - 20px)'
+    IFRAME.style.height = '520px'
+    IFRAME.style.border = 'none'
     IFRAME.style.userSelect = 'none'
+    IFRAME.style.borderRadius = '20px'
+    IFRAME.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)'
+    IFRAME.style.margin = '10px auto 0'
 
     setCloseStyle()
 
@@ -71,7 +73,7 @@
     }
 
     function setCloseStyle () {
-        WRAPPER.style.width = '48px'
+        WRAPPER.style.width = '58px'
         WRAPPER.style.height = '48px'
 
         IFRAME.style.display = 'none'
@@ -83,8 +85,8 @@
     }
 
     function setOpenStyle () {
-        WRAPPER.style.width = '360px'
-        WRAPPER.style.height = '603px'
+        WRAPPER.style.width = '380px'
+        WRAPPER.style.height = '595px'
 
         IFRAME.style.display = 'block'
 
