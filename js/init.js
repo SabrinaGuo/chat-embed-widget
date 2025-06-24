@@ -1,7 +1,7 @@
 (function () {
 	const BOT_DOMAIN = "https://sabrinaguo.github.io";
-	const BOT_SRC = `${BOT_DOMAIN}/chat-embed-widget`;
-	// const BOT_SRC = `./index.html`
+	// const BOT_SRC = `${BOT_DOMAIN}/chat-embed-widget`;
+	const BOT_SRC = `./index.html`
 	const BOT_IMG = `${BOT_SRC}/img/icon-bot.svg`;
 	const BOT_ARROW = `${BOT_SRC}/img/icon-arrow.svg`;
 

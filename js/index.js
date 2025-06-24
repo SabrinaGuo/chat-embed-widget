@@ -1,22 +1,6 @@
-const satisfactionHTML = `
-<div class="bot-feedback-block">
-    <div class="text-style">Was this answer helpful to you?</div>
-    <div class="feedback-buttons">
-    <button onclick="showText('Yes')">Yes</button>
-    <button onclick="showText('No')">No</button>
-    </div>
-    <textarea placeholder="more..." rows="4" id="feedback-input"></textarea>
-</div>
-`;
-
-const enterQuestionnaireHTML = `
-<div class="bot-feedback-block">
-    <div class="text-style">Sorry we couldn’t assist you this time. Please leave your information via our  
-    <a class="link-style" href="https://aicom.nextlink.cloud/en/contact-us/" target="_blank" rel="noopener noreferrer">Contact Us</a> 
-    form, and we’ll arrange for a specialist to get in touch with you as soon as possible.
-    </div>
-</div>
-`;
+const USER_COLOR = 'linear-gradient(90deg, #bf51dc 0%, #5e55fa 100%)'
+const satisfactionHTML = document.querySelector('#t_satisfaction').innerHTML;
+const enterQuestionnaireHTML = document.querySelector('#t_enterQuestionnaire').innerHTML;
 
 const defaultCallSatisfactionStr = [
 	"謝謝你",
@@ -47,11 +31,49 @@ let isFeedbackInputComposing = false;
 const userInput = document.getElementById("userInput");
 const sendBtn = document.querySelector(".send-btn");
 
-function init() {
-	// messages.innerHTML = '';
-	createBotMsg("Hi there! I'm Poco. How can I assist you today?");
-}
 init();
+
+function init() {
+	createBotMsg("Hi there! I'm Poco. How can I assist you today?");
+
+	document.addEventListener("keydown", (e) => {
+		const target = e.target;
+		if (
+			target.matches("#feedback-input") &&
+			e.key === "Enter" &&
+			!e.shiftKey &&
+			!isFeedbackInputComposing
+		) {
+			const message = target.value?.trim();
+			if (message) {
+				e.preventDefault();
+				createBotMsg(
+					"Thanks again for your valuable feedback! I'll keep improving to deliver a better experience in the future."
+				);
+			}
+		}
+	});
+
+	sendBtn.addEventListener("click", sendMessage);
+
+	// 判斷是否正在輸入中文（選字階段）
+	userInput.addEventListener("compositionstart", () => { isComposing = true });
+	userInput.addEventListener("compositionend", () => { isComposing = false });
+
+	userInput.addEventListener("keydown", handleInput);
+	document.querySelector(".close-btn").addEventListener("click", closeBot);
+}
+
+function closeBot() {
+	window.parent.postMessage("closeChatIframe", "*");
+}
+
+function handleInput(e) {
+	if (e.key === "Enter" && !isComposing) {
+		e.preventDefault(); // 阻止換行
+		sendMessage();
+	}
+}
 
 function linkify(text) {
 	const urlRegex =
@@ -68,27 +90,11 @@ function formatTime() {
 	return `${h}:${m}`;
 }
 
+// loading 訊息
 function createBotLoading() {
-	const botBox = document.createElement("div");
-	botBox.className = "messages-bot messages-box loading-box";
-
-	const botBoxContent = document.createElement("div");
-	botBoxContent.className = "messages-content";
-
-	const botIcon = document.createElement("div");
-	botIcon.className = "messages-bot-icon";
-	botIcon.style.background = "linear-gradient(90deg, #bf51dc 0%, #5e55fa 100%)";
-
-	const botImg = document.createElement("img");
-	botImg.src = "./img/icon-bot.svg";
-
-	const loading = document.createElement("div");
-	loading.className = "spinner";
-	loading.innerHTML = `
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-    `;
+	const { botBox, botBoxContent, botImg, botIcon } = createBotEL('loading')
+	const loading = createEL('div', 'spinner')
+	loading.innerHTML = document.querySelector('#t_loading').innerHTML
 
 	botIcon.appendChild(botImg);
 	botBox.appendChild(botIcon);
@@ -96,57 +102,36 @@ function createBotLoading() {
 	botBoxContent.appendChild(loading);
 
 	messages.appendChild(botBox);
-
+	scrollToBottom()
 	return botBox;
 }
 
+// user 回覆訊息
 function createUserMsg(str) {
-	const userBox = document.createElement("div");
-	userBox.className = "messages-user messages-box";
+	const { botBox, botBoxContent } = createBotEL('user')
+	const userTime = createTimeEL(formatTime())
+	const userP = createTextEL(str)
 
-	const userTime = document.createElement("span");
-	userTime.textContent = formatTime();
+	botBox.appendChild(userTime);
+	botBox.appendChild(botBoxContent);
+	botBoxContent.appendChild(userP);
 
-	const userBoxContent = document.createElement("div");
-	userBoxContent.className = "messages-content";
-
-	const userP = document.createElement("div");
-	userP.className = "text-style";
-	userP.innerHTML = str;
-
-	userBox.appendChild(userTime);
-	userBox.appendChild(userBoxContent);
-	userBoxContent.appendChild(userP);
-
-	messages.appendChild(userBox);
-	messages.scrollTop = messages.scrollHeight;
+	messages.appendChild(botBox);
+	scrollToBottom()
+	return botBox
 }
 
+// 機器人回覆訊息
 function createBotMsg(str) {
-	const botBox = document.createElement("div");
-	botBox.className = "messages-bot messages-box";
-
-	const botBoxContent = document.createElement("div");
-	botBoxContent.className = "messages-content";
-
-	const botIcon = document.createElement("div");
-	botIcon.className = "messages-bot-icon";
-	botIcon.style.background = "linear-gradient(90deg, #bf51dc 0%, #5e55fa 100%)";
-
-	const botImg = document.createElement("img");
-	botImg.src = "./img/icon-bot.svg";
-
-	const botTime = document.createElement("span");
-	botTime.textContent = formatTime();
+	const { botBox, botBoxContent, botImg, botIcon } = createBotEL('bot')
+	const botTime = createTimeEL(formatTime())
 
 	if (defaultCallSatisfactionStr.includes(str)) {
 		botBoxContent.innerHTML = satisfactionHTML;
 	} else if (enterQuestionnaireStr.includes(str)) {
 		botBoxContent.innerHTML = enterQuestionnaireHTML;
 	} else {
-		const botP = document.createElement("div");
-		botP.className = "text-style";
-		botP.innerHTML = linkify(str);
+		const botP = createTextEL(linkify(str))
 		botBoxContent.appendChild(botP);
 	}
 
@@ -154,59 +139,112 @@ function createBotMsg(str) {
 	botBox.appendChild(botIcon);
 	botBox.appendChild(botBoxContent);
 	botBox.appendChild(botTime);
-	messages.appendChild(botBox);
 
-	messages.scrollTop = messages.scrollHeight;
+	messages.appendChild(botBox);
+	scrollToBottom()
 }
 
-function getMessageAndSend() {
+function scrollToBottom() {
+	setTimeout(() => {
+		messages.scrollTop = messages.scrollHeight;
+	}, 0)
+}
+
+function createEL(tagName, className) {
+	const el = document.createElement(tagName);
+	if (className) el.className = className
+	return el
+}
+
+// 訊息結構
+function createBotEL(type) {
+	const botBox = createEL('div', 'messages-box')
+	const botBoxContent = createEL('div', 'messages-content')
+
+	switch (type) {
+		case 'bot':
+			botBox.className += ' messages-bot'
+			break
+		case 'user':
+			botBox.className += ' messages-user'
+			break
+		case 'loading':
+			botBox.className += ' messages-bot loading-box'
+			break
+		default: break
+	}
+
+	const botIcon = createEL('div', 'messages-bot-icon')
+	botIcon.style.background = USER_COLOR;
+
+	const botImg = createEL('img')
+	botImg.src = "./img/icon-bot.svg";
+
+	return { botBox, botBoxContent, botIcon, botImg }
+}
+
+// 訊息內容
+function createTextEL(str) {
+	const text = createEL('div', 'text-style')
+	text.innerHTML = str
+	return text
+}
+
+// 時間內容
+function createTimeEL(time) {
+	const t = createEL('span')
+	t.textContent = time;
+	return t
+}
+
+async function sendMessage() {
 	const msg = userInput.value.trim();
-	if (!msg) return;
+	if (!msg || connecting) return;
 
 	userInput.value = ""; // 同步清空
-	sendMessage(msg); // 把訊息傳進去
-}
-
-async function sendMessage(msg) {
-	const messages = document.getElementById("messages");
-	if (!msg) return;
 	createUserMsg(msg);
-	const loadingEl = createBotLoading();
 
+	const loadingEl = createBotLoading();
+	handleSending(loadingEl, true)
+
+	// 如為使用者訊息包含預設文字，show 回饋訊息
 	if (defaultCallSatisfactionStr.includes(msg)) {
-		loadingEl.remove();
+		handleSending(loadingEl, false)
 		createBotMsg(satisfactionHTML);
 		return;
 	}
 
-	if (!connecting) {
-		connecting = true;
+	try {
+		const response = await fetch(
+			"https://billing-ai-temp-505738238648.asia-east1.run.app/api/v1/demo/stream_ask_question",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					question_str: msg,
+					account_restrictions: [],
+				}),
+			}
+		);
+		const replyText = await response.text();
+		createBotMsg(replyText);
+	} catch (error) {
+		createBotMsg(error.messages);
+	} finally {
+		handleSending(loadingEl, false)
+	}
+}
+
+function handleSending(loader, isSending) {
+	if (isSending) {
+		connecting = true
 		sendBtn.classList.add("disabled");
-		try {
-			const response = await fetch(
-				"https://billing-ai-temp-505738238648.asia-east1.run.app/api/v1/demo/stream_ask_question",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						question_str: msg,
-						account_restrictions: [],
-					}),
-				}
-			);
-			const replyText = await response.text();
-			loadingEl.remove();
-			createBotMsg(replyText);
-			connecting = false;
-			sendBtn.classList.remove("disabled");
-		} catch (error) {
-			if (loadingEl) loadingEl.remove();
-			createBotMsg(error.messages);
-			connecting = false;
-			sendBtn.classList.remove("disabled");
-		}
+	} else {
+		connecting = false
+		sendBtn.classList.remove("disabled");
+		if (loader) loader.remove();
 	}
 }
 
@@ -222,47 +260,3 @@ function showText(str) {
 		createBotMsg("That didn’t help");
 	}, 600);
 }
-
-sendBtn.addEventListener("click", () => {
-	getMessageAndSend();
-});
-// 判斷是否正在輸入中文（選字階段）
-userInput.addEventListener("compositionstart", () => {
-	isComposing = true;
-});
-
-document.addEventListener("keydown", (e) => {
-	const target = e.target;
-	if (
-		target.matches("#feedback-input") &&
-		e.key === "Enter" &&
-		!e.shiftKey &&
-		!isFeedbackInputComposing
-	) {
-		const message = target.value?.trim();
-		if (message) {
-			// createUserMsg(message);
-			e.preventDefault();
-			createBotMsg(
-				"Thanks again for your valuable feedback! I'll keep improving to deliver a better experience in the future."
-			);
-			// target.value = "";
-		}
-	}
-});
-
-userInput.addEventListener("compositionend", () => {
-	isComposing = false;
-});
-
-document.getElementById("userInput").addEventListener("keydown", (e) => {
-	if (e.key === "Enter" && !isComposing) {
-		e.preventDefault(); // 阻止換行
-		getMessageAndSend();
-	}
-});
-
-document.querySelector(".close-btn").addEventListener("click", () => {
-	// 通知父視窗隱藏 iframe
-	window.parent.postMessage("closeChatIframe", "*");
-});

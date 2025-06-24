@@ -140,6 +140,41 @@
       </div>
     </div>
 
+    <template id="t_satisfaction">
+      <div class="bot-feedback-block">
+        <div class="text-style">Was this answer helpful to you?</div>
+        <div class="feedback-buttons">
+          <button onclick="showText('Yes')">Yes</button>
+          <button onclick="showText('No')">No</button>
+        </div>
+        <textarea placeholder="more..." rows="4" id="feedback-input"></textarea>
+      </div>
+    </template>
+
+    <template id="t_enterQuestionnaire">
+      <div class="bot-feedback-block">
+        <div class="text-style">
+          Sorry we couldn’t assist you this time. Please leave your information
+          via our
+          <a
+            class="link-style"
+            href="https://aicom.nextlink.cloud/en/contact-us/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Contact Us</a
+          >
+          form, and we’ll arrange for a specialist to get in touch with you as
+          soon as possible.
+        </div>
+      </div>
+    </template>
+
+    <template id="t_loading">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </template>
+
     <script src="./js/index.js"></script>
   </body>
 </html>
