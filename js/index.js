@@ -30,6 +30,7 @@ const defaultCallSatisfactionStr = [
 	"That's all, No more questions",
 	"I know what to do now",
 ];
+
 const enterQuestionnaireStr = [
 	"你沒幫上忙",
 	"這不是我要的答案",
@@ -53,7 +54,6 @@ function init() {
 init();
 
 function linkify(text) {
-	console.log(text);
 	const urlRegex =
 		/(https?:\/\/[^\s\u3002\uff0c\u3001\uFF1F\uFF01\uFF1B\uFF1A\u300C\u300D\u300E\u300F\u201C\u201D\u300A\u300B\u3010\u3011\uFF08\uFF09]+)/g;
 	return text.replace(urlRegex, (url) => {
@@ -138,11 +138,8 @@ function createBotMsg(str) {
 
 	const botTime = document.createElement("span");
 	botTime.textContent = formatTime();
-	console.log(1);
-	console.log(defaultCallSatisfactionStr);
-	console.log(str);
+
 	if (defaultCallSatisfactionStr.includes(str)) {
-		console.log(2);
 		botBoxContent.innerHTML = satisfactionHTML;
 	} else if (enterQuestionnaireStr.includes(str)) {
 		botBoxContent.innerHTML = enterQuestionnaireHTML;
