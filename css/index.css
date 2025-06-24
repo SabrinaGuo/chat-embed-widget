@@ -112,6 +112,7 @@ img {
   font-size: 13px;
   font-weight: 400;
   color: #444444;
+  word-break: break-word;
 }
 .messages-box .link-style {
   margin: 0;
