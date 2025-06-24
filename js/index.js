@@ -36,24 +36,6 @@ init();
 function init() {
 	createBotMsg("Hi there! I'm Poco. How can I assist you today?");
 
-	document.addEventListener("keydown", (e) => {
-		const target = e.target;
-		if (
-			target.matches("#feedback-input") &&
-			e.key === "Enter" &&
-			!e.shiftKey &&
-			!isFeedbackInputComposing
-		) {
-			const message = target.value?.trim();
-			if (message) {
-				e.preventDefault();
-				createBotMsg(
-					"Thanks again for your valuable feedback! I'll keep improving to deliver a better experience in the future."
-				);
-			}
-		}
-	});
-
 	sendBtn.addEventListener("click", sendMessage);
 
 	// 判斷是否正在輸入中文（選字階段）
@@ -62,6 +44,20 @@ function init() {
 
 	userInput.addEventListener("keydown", handleInput);
 	document.querySelector(".close-btn").addEventListener("click", closeBot);
+
+	// 判斷是否正在輸入中文（選字階段）
+	document.addEventListener('compositionstart', (e) => {
+		if (e.target.matches('.feedback-input')) {
+			isFeedbackInputComposing = true
+		}
+	})
+	document.addEventListener('compositionend', (e) => {
+		if (e.target.matches('.feedback-input')) {
+			isFeedbackInputComposing = false
+		}
+	})
+
+	document.addEventListener("keydown", handleFeedbackInput);
 }
 
 function closeBot() {
@@ -72,6 +68,26 @@ function handleInput(e) {
 	if (e.key === "Enter" && !isComposing) {
 		e.preventDefault(); // 阻止換行
 		sendMessage();
+	}
+}
+
+function handleFeedbackInput(e) {
+	const target = e.target;
+	if (
+		target.matches(".feedback-input") &&
+		e.key === "Enter" &&
+		!e.shiftKey &&
+		!isFeedbackInputComposing &&
+		!target.disabled
+	) {
+		const message = target.value?.trim();
+		if (message) {
+			e.preventDefault();
+			target.disabled = true
+			createBotMsg(
+				"Thanks again for your valuable feedback! I'll keep improving to deliver a better experience in the future."
+			);
+		}
 	}
 }
 
