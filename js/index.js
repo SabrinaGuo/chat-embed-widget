@@ -273,7 +273,7 @@
     const controller = new AbortController();
     try {
       loader = loadingEl
-      setTimer(() => controller.abort()) // 設定五秒計時，超過時間顯示超時提示
+      // setTimer(() => controller.abort()) // 設定五秒計時，超過時間顯示超時提示
 
       const res = await fetch(API_URL,
         {
