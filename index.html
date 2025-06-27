@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Widget</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <script src="./locales/en.js"></script>
+    <script src="./locales/zh.js"></script>
   </head>
   <body>
     <div class="chatbox">
@@ -15,7 +17,7 @@
             <p>AI Smart Assistant</p>
             <p>
               <span class="green-dot"></span>
-              <span>Online</span>
+              <span data-i18n="online">Online</span>
             </p>
           </div>
         </h2>
@@ -132,10 +134,19 @@
           </div>
           <span>7:20</span>
         </div> -->
+
+        <!-- <div class="error-message">
+          <span>The response has timed out</span>
+        </div> -->
       </div>
 
       <div class="input-area">
-        <input id="userInput" type="text" placeholder="send a message" />
+        <input
+          id="userInput"
+          type="text"
+          placeholder="Send a message"
+          data-i18n-input="sendMessage"
+        />
         <div class="send-btn"></div>
       </div>
     </div>
@@ -144,8 +155,8 @@
       <div class="bot-feedback-block">
         <div class="text-style">Was this answer helpful to you?</div>
         <div class="feedback-buttons">
-          <button onclick="showText('Yes')">Yes</button>
-          <button onclick="showText('No')">No</button>
+          <button onclick="window.LM.showText('Solved')">Solved</button>
+          <button onclick="window.LM.showText('Not Solved')">Not Solved</button>
         </div>
         <textarea
           placeholder="more..."
@@ -179,6 +190,6 @@
       <div class="bounce3"></div>
     </template>
 
-    <script src="./js/index.js"></script>
+    <script type="module" src="./js/index.js"></script>
   </body>
 </html>
