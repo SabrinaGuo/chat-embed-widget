@@ -320,7 +320,7 @@
         const chunk = decoder.decode(value, { stream: true });
 
         // SSE 格式，逐行處理
-        chunk.split('\n').forEach(async (line) => {
+        chunk.split('\n').forEach((line) => {
           if (line.startsWith('data: ')) {
             const data = line.replace('data: ', '').trim();
             if (data === '[DONE]') return;
@@ -331,7 +331,6 @@
                 textArr.push(json)
                 botContent.textContent += content
                 scrollToBottom()
-                await new Promise((resolve) => setTimeout(resolve, 15));
               }
             } catch (e) {
               console.error('JSON 解析失敗:', e);
