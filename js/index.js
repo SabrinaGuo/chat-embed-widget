@@ -228,7 +228,7 @@
     botIcon.style.background = USER_COLOR;
 
     const botImg = createEL('img')
-    botImg.src = '../img/icon-bot.svg';
+    botImg.src = './img/icon-bot.svg';
 
     return { botBox, botBoxContent, botIcon, botImg }
   }
